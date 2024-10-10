@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store.jsx";
-
 import LandingPage from "./pages/LandingPage.jsx";
 import HomeForm from "./components/HomeForm.jsx";
 import AboutUsForm from "./components/AboutUsForm.jsx";
@@ -11,7 +10,6 @@ import WhyUsForm from "./components/WhyUsForm.jsx";
 import ContactUsForm from "./components/ContactUsForm.jsx";
 import EditorLandingPage from "./pages/EditorLandingPage.jsx";
 import NavBarForm from "./components/NavBarForm.jsx";
-// import HomeForm2 from "./components/HomeForm2.jsx";
 
 function App() {
   return (
@@ -31,7 +29,6 @@ function App() {
             <Route path="edit-contactus" element={<ContactUsForm />} />
             <Route path="edit-navbar" element={<NavBarForm />} />
           </Route>
-          {/* <Route path="edit-home2" element={<HomeForm2 />} /> */}
         </Routes>
       </Router>
     </Provider>
