@@ -1,15 +1,14 @@
+import React from 'react'
 import imageOne from "../assets/imageOne.png";
 import imageTwo from "../assets/imageTwo.png";
 import imageThree from "../assets/imageThree.png";
 import imageFour from "../assets/imageFour.png";
 import coverImage from "../assets/coverImage.png";
-
 import "../styles/WebsiteGeneratorEditor.css";
-
 import useFormData from "../hooks/useFormData";
 
 function Projects() {
-  const { formData } = useFormData("form5");
+  const { formData } =useFormData("form5");
 
   return (
     <div className="bg-white max-w-7xl mx-auto px-4 py-8 p-20">

@@ -1,50 +1,50 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { createOrGetProject } from '../indexDB/Dexie'; // Import Dexie method
 import {
   updateFormField,
   LoadFormData,
   SaveFormDataToDB,
-} from "../store/Actions"; // Import Redux actions
+} from "../store/ProjectSlice"; // Import Redux actions
 
 import "../styles/LeftSideBar.css";
 
 function WhyUsForm() {
   const dispatch = useDispatch();
-  const formData = useSelector((state) => state.form.form3); // Get form1 data from Redux store
+  const formData = useSelector((state) => state.project.formData.form3); // Get form3 data from Redux store
   const { projectId } = useParams(); // Get the projectId from the URL
 
   // Load form data from IndexedDB when the component mounts
   useEffect(() => {
-    if (projectId) {
-      dispatch(LoadFormData(projectId)); // Load form data from IndexedDB into Redux
-    }
+    const fetchProject = async () => {
+      if (projectId) {
+        await dispatch(LoadFormData(projectId)); // Load form data from IndexedDB into Redux
+      } else {
+        // Create or get a project if no projectId is provided
+        const id = await dispatch(createOrGetProject());
+        await dispatch(LoadFormData(id));
+      }
+    };
+    fetchProject();
   }, [projectId, dispatch]);
 
   // Handle text field changes
   const handleChange = (event) => {
     const { name, value } = event.target;
-    dispatch(updateFormField("form3", name, value)); // Update Redux store
-    dispatch(SaveFormDataToDB(projectId, { ...formData, [name]: value })); // Save to IndexedDB
-  };
-
-  // Handle file/image upload
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file); // Create a temporary URL for the file
-      dispatch(updateFormField("form3", "backgroundImage", imageUrl)); // Update Redux store
-      dispatch(
-        SaveFormDataToDB(projectId, { ...formData, backgroundImage: imageUrl })
-      ); // Save to IndexedDB
+    dispatch(updateFormField({ formName: "form3", field: name, value })); // Update Redux store
+    
+    if (projectId) {
+      dispatch(SaveFormDataToDB(projectId, formData)); // Save to IndexedDB
+    } else {
+      console.error("Cannot save form data: projectId is not set.");
     }
   };
 
-  // Handle form submission (no submit logic here as this is just for editing)
+  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Additional submit actions can be performed here, such as saving data to a server if needed.
-    SaveFormDataToDB(formData.projectId, formData);
+    dispatch(SaveFormDataToDB(projectId, formData)); // Save current form data on submit
   };
 
   return (
@@ -157,10 +157,10 @@ function WhyUsForm() {
         </div>
 
         <button
+          type="submit"
           className="bg-green-950 h-[3em] px-6 py-2 rounded-lg text-lightBeige tracking-wider mt-6"
-          onClick={handleSubmit}
         >
-          Submit
+          Save
         </button>
       </form>
     </div>

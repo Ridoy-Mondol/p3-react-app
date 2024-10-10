@@ -1,22 +1,17 @@
-import {
-  updateFormField,
-  LoadFormData,
-  SaveFormDataToDB,
-} from "../store/Actions";
+import { SaveFormDataToDB } from "../store/Actions";
 import useFormData from "../hooks/useFormData";
 
 import "../styles/LeftSideBar.css";
 
 function ContactUsForm() {
-  const { formData, handleFieldChange, handleFileChange } =
-    useFormData("form6");
-  const handleChange = handleFieldChange;
+  // Using custom hook to manage form data and change handlers for form6
+  const { formData, handleFieldChange } = useFormData("form6");
 
-  // Handle form submission (no submit logic here as this is just for editing)
+  // Handle form submission and save data to IndexedDB
   const handleSubmit = (event) => {
     event.preventDefault();
-    SaveFormDataToDB(formData.projectId, formData);
-    // Additional submit actions can be performed here, such as saving data to a server if needed.
+    SaveFormDataToDB(formData.projectId, formData); // Save form data on submit
+    // Additional submit actions can be added here
   };
 
   return (
@@ -25,54 +20,59 @@ function ContactUsForm() {
         Edit Contact Us Section
       </h2>
       <form onSubmit={handleSubmit}>
+        {/* Contact Us Title */}
         <div className="flex flex-col">
           <label className="text-white mb-1">Contact Us</label>
           <textarea
             name="title"
             id="title"
-            value={formData.title || ""} // Use value from Redux
-            onChange={handleChange}
+            value={formData.title || ""} // Ensure value from formData is displayed
+            onChange={handleFieldChange} // Change handler for title field
             className="p-1"
             rows="2"
           ></textarea>
         </div>
 
+        {/* Phone Number */}
         <div className="flex flex-col">
           <label className="text-white mt-3 mb-1">Phone Number</label>
           <textarea
             name="phoneNumber"
             id="phoneNumber"
-            value={formData.phoneNumber || ""} // Use value from Redux
-            onChange={handleChange}
+            value={formData.phoneNumber || ""} // Ensure value from formData is displayed
+            onChange={handleFieldChange} // Change handler for phoneNumber field
             className="p-1"
             rows="2"
           ></textarea>
         </div>
 
+        {/* Email Address */}
         <div className="flex flex-col">
           <label className="text-white mt-3 mb-1">Email Address</label>
           <textarea
             name="emailAdd"
             id="emailAdd"
-            value={formData.emailAdd || ""} // Use value from Redux
-            onChange={handleChange}
+            value={formData.emailAdd || ""} // Ensure value from formData is displayed
+            onChange={handleFieldChange} // Change handler for emailAdd field
             className="p-1"
             rows="2"
           ></textarea>
         </div>
 
+        {/* Business Address */}
         <div className="flex flex-col">
           <label className="text-white mt-3 mb-1">Business Address</label>
           <textarea
             name="location"
             id="location"
-            value={formData.location || ""} // Use value from Redux
-            onChange={handleChange}
+            value={formData.location || ""} // Ensure value from formData is displayed
+            onChange={handleFieldChange} // Change handler for location field
             className="p-1"
             rows="4"
           ></textarea>
         </div>
 
+        {/* Submit Button */}
         <button className="bg-green-950 h-[3em] px-6 py-2 rounded-lg text-lightBeige tracking-wider mt-5"
         onClick={handleSubmit}>
           Submit

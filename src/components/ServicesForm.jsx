@@ -1,48 +1,55 @@
-import {
-  updateFormField,
-  LoadFormData,
-  SaveFormDataToDB,
-} from "../store/Actions";
-import useFormData from "../hooks/useFormData";
-
-import "../styles/LeftSideBar.css";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { LoadFormData, SaveFormDataToDB } from "../store/Actions"; // Actions to load and save data
+import useFormData from "../hooks/useFormData"; // Custom hook to manage form data
+import "../styles/LeftSideBar.css"; // Custom CSS
 
 function ServicesForm() {
-  const { formData, handleFieldChange, handleFileChange } =
-    useFormData("form4");
-  const handleChange = handleFieldChange;
+  const dispatch = useDispatch();
+  const { formData, handleFieldChange, handleFileChange } = useFormData("form4"); // Hook to manage form state
+  const { projectId } = useParams(); // Get projectId from the URL
 
-  // Handle form submission (no submit logic here as this is just for editing)
+  useEffect(() => {
+    // Load form data when projectId is available
+    if (projectId) {
+      dispatch(LoadFormData(projectId)); // Dispatch action to load data
+    }
+  }, [projectId, dispatch]); // Effect depends on projectId and dispatch
+
+  const handleChange = handleFieldChange; // Shortcut for handling field changes
+
   const handleSubmit = (event) => {
-    event.preventDefault();
-    // Additional submit actions can be performed here, such as saving data to a server if needed.
-    SaveFormDataToDB(formData.projectId, formData);
+    event.preventDefault(); // Prevent default form submit behavior
+    SaveFormDataToDB(formData.projectId, formData); // Save form data to the database
   };
 
   return (
     <div className="flex flex-col p-6">
-      <h4 className="text-white mb-4 flex justify-center">
-        Edit Services Section
-      </h4>
+      <h4 className="text-white mb-4 flex justify-center">Edit Services Section</h4>
+      
+      {/* Form structure for title, subtitles, descriptions, and images */}
       <form onSubmit={handleSubmit}>
+        {/* Section Title */}
         <div className="flex flex-col">
           <label className="text-white mb-1">Title</label>
           <textarea
             name="sectionTitle"
             id="sectionTitle"
-            value={formData.sectionTitle || ""} // Use value from Redux
+            value={formData.sectionTitle || ""}
             onChange={handleChange}
             className="p-1"
             rows="2"
           ></textarea>
         </div>
 
+        {/* Subtitle One and Description One */}
         <div className="flex flex-col">
           <label className="text-white mb-1 mt-2">Subtitle One</label>
           <textarea
             name="subtitleOne"
             id="subtitleOne"
-            value={formData.subtitleOne || ""} // Use value from Redux
+            value={formData.subtitleOne || ""}
             onChange={handleChange}
             className="p-1"
             rows="2"
@@ -53,12 +60,14 @@ function ServicesForm() {
           <textarea
             name="textAreaOne"
             id="textAreaOne"
-            value={formData.textAreaOne || ""} // Use value from Redux
+            value={formData.textAreaOne || ""}
             onChange={handleChange}
             className="p-1"
             rows="5"
           ></textarea>
         </div>
+        
+        {/* Image One Upload */}
         <div className="flex flex-col mb-4">
           <label className="text-white mb-1 mt-3">Image One</label>
           <input
@@ -69,13 +78,13 @@ function ServicesForm() {
           />
         </div>
 
-        {/* Second Card */}
+        {/* Repeat for Subtitle Two, Description Two, and Image Two */}
         <div className="flex flex-col">
           <label className="text-white mb-1 mt-2">Subtitle Two</label>
           <textarea
             name="subtitleTwo"
             id="subtitleTwo"
-            value={formData.subtitleTwo || ""} // Use value from Redux
+            value={formData.subtitleTwo || ""}
             onChange={handleChange}
             className="p-1"
             rows="2"
@@ -86,7 +95,7 @@ function ServicesForm() {
           <textarea
             name="textAreaTwo"
             id="textAreaTwo"
-            value={formData.textAreaTwo || ""} // Use value from Redux
+            value={formData.textAreaTwo || ""}
             onChange={handleChange}
             className="p-1"
             rows="5"
@@ -102,13 +111,13 @@ function ServicesForm() {
           />
         </div>
 
-        {/*Third Card */}
+        {/* Continue for Subtitle Three, Description Three, and Image Three */}
         <div className="flex flex-col">
           <label className="text-white mb-1 mt-2">Subtitle Three</label>
           <textarea
             name="subtitleThree"
             id="subtitleThree"
-            value={formData.subtitleTwo || ""} // Use value from Redux
+            value={formData.subtitleThree || ""}
             onChange={handleChange}
             className="p-1"
             rows="2"
@@ -119,7 +128,7 @@ function ServicesForm() {
           <textarea
             name="textAreaThree"
             id="textAreaThree"
-            value={formData.textAreaThree || ""} // Use value from Redux
+            value={formData.textAreaThree || ""}
             onChange={handleChange}
             className="p-1"
             rows="5"
@@ -135,13 +144,13 @@ function ServicesForm() {
           />
         </div>
 
-        {/* Fourth Card */}
+        {/* Subtitle Four, Description Four, and Image Four */}
         <div className="flex flex-col">
           <label className="text-white mb-1 mt-2">Subtitle Four</label>
           <textarea
             name="subtitleFour"
             id="subtitleFour"
-            value={formData.subtitleFour || ""} // Use value from Redux
+            value={formData.subtitleFour || ""}
             onChange={handleChange}
             className="p-1"
             rows="2"
@@ -152,7 +161,7 @@ function ServicesForm() {
           <textarea
             name="textAreaFour"
             id="textAreaFour"
-            value={formData.textAreaFour || ""} // Use value from Redux
+            value={formData.textAreaFour || ""}
             onChange={handleChange}
             className="p-1"
             rows="5"
@@ -168,6 +177,7 @@ function ServicesForm() {
           />
         </div>
 
+        {/* Submit button */}
         <button
           className="bg-green-950 h-[3em] px-6 py-2 rounded-lg text-lightBeige tracking-wider"
           onClick={handleSubmit}

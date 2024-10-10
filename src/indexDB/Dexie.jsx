@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-import { setProjectId } from "../store/ProjectSlice";
 import Dexie from "dexie";
 
 // Initialize Dexie with a database for storing form data
@@ -7,13 +5,14 @@ const db = new Dexie("WebsiteBuilderDB");
 
 // Define schema (for a project with multiple forms)
 db.version(1).stores({
-  projects:
-    "++id, projectId, formData, form1, form2, form3, form4, form5, form6",
+  projects: "++id, projectId, form1, form2, form3, form4, form5, form6, form7",
 });
 
+// Function to get form data by projectId from IndexedDB
 export const getFormDataById = async (projectId) => {
   try {
-    const data = await db.projects.get(projectId); // Query by projectId field
+    // Ensure projectId is treated as a string for searching
+    const data = await db.projects.where("projectId").equals(projectId.toString()).first();
     if (data) {
       console.log("Data retrieved for project ID:", projectId, data);
     } else {
@@ -26,29 +25,22 @@ export const getFormDataById = async (projectId) => {
   }
 };
 
-// Dexie.js or wherever the function is located
 export const createOrGetProject = async () => {
   try {
     // Check if there's already a project in localStorage
     let projectId = localStorage.getItem("projectId");
 
     if (projectId) {
-      const existingProject = await db.projects
-        .where("projectId")
-        .equals(parseInt(projectId))
-        .first();
+      const existingProject = await db.projects.where("projectId").equals(parseInt(projectId)).first();
       if (existingProject) {
-        console.log(
-          "Existing project found in IndexedDB with projectId:",
-          projectId
-        );
-        return projectId;
+        console.log("Existing project found in IndexedDB with projectId:", projectId);
+        return parseInt(projectId); // Ensure projectId is an integer
       }
     }
 
-    const newProjectId = Date.now();
+    const newProjectId = Date.now(); // Use timestamp as project ID
 
-    // If no projectId is found, create a new project
+    // Create a new project with empty form data for each form
     const newProjectData = {
       projectId: newProjectId,
       form1: {},
@@ -60,32 +52,37 @@ export const createOrGetProject = async () => {
       form7: {},
     };
 
-    /* const newProjectId = await db.projects.add({
-      projectId: Date.now(),
-      ...newProjectData,
-    }); */
-    await db.projects.add(newProjectData);
+    await db.projects.add(newProjectData); // Save the new project data in IndexedDB
 
     // Save the newly generated projectId in localStorage
-    localStorage.setItem("projectId", newProjectId);
+    localStorage.setItem("projectId", newProjectId.toString());
 
-    return newProjectId;
+    return newProjectId; // Return the new project ID
   } catch (error) {
     console.error("Failed to create or retrieve project:", error);
   }
 };
 
+
 // Function to save form data in IndexedDB
 export const saveFormData = async (projectId, formData) => {
   try {
+    // Check if projectId is null or undefined
+    if (!projectId) {
+      console.error("Cannot save form data: projectId is null or undefined.");
+      return; // Exit if projectId is not valid
+    }
+
     console.log("Saving form data for project ID:", projectId, formData); // for debugging
-    // Save form data based on projectId
-    await db.projects.put({ projectId, ...formData });
+
+    // Ensure projectId is a string
+    await db.projects.where("projectId").equals(projectId.toString()).modify(formData);
     console.log("Form data saved successfully for project ID:", projectId);
   } catch (error) {
     console.error("Failed to save form data:", error);
   }
 };
+
 
 // Function to clear IndexedDB
 export const clearIndexedDB = async () => {
@@ -98,43 +95,3 @@ export const clearIndexedDB = async () => {
 };
 
 export default db;
-
-// Function to create a new project with empty forms
-/* export const createNewProject = async () => {
-  try {
-    // Create a new project with empty form data for each form
-    const id = await db.projects.add({
-      form1: {},
-      form2: {},
-      form3: {},
-      form4: {
-        title: "",
-        subtitles: Array(4).fill(""),
-        textAreas: Array(4).fill(""),
-        image: null,
-      },
-      form5: { title: "", images: Array(5).fill(null) },
-      form6: { title: "", inputs: Array(3).fill(""), textarea: "" },
-    });
-    console.log("New project created with ID:", id);
-    return id;
-  } catch (error) {
-    console.error("Failed to create a new project:", error);
-  }
-}; */
-
-// Function to get form data by projectId from IndexedDB
-/* export const getFormDataById = async (projectId) => {
-  try {
-    const data = await db.projects.get({ projectId });
-    if (data) {
-      console.log("Data retrieved for project ID:", projectId, data); // Debugging output
-    } else {
-      console.log("No data found for project ID:", projectId); // Debugging output
-    }
-    return data;
-  } catch (error) {
-    console.error("Failed to retrieve data:", error);
-    return null;
-  }
-}; */

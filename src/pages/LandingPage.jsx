@@ -4,7 +4,7 @@ import landingPageImageOne from "../assets/landingPageImageOne.png";
 import landingPageImageTwo from "../assets/landingPageImageTwo.png";
 import landingPageImageThree from "../assets/landingPageImageThree.png";
 import { useNavigate } from "react-router-dom";
-import { createOrGetProject } from "../indexDb/Dexie";
+import { createOrGetProject } from "../indexDB/Dexie";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";

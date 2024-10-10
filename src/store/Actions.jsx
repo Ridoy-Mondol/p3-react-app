@@ -1,12 +1,13 @@
-import { saveFormData, getFormDataById } from "../indexDb/Dexie";
+import { saveFormData, getFormDataById } from "../indexDB/Dexie";
 
-// Load form data from IndexedDB and dispatch it to Redux
 export const LoadFormData = (projectId) => async (dispatch) => {
   try {
     const data = await getFormDataById(projectId);
-    console.log("Data from IndexedDB:", data);
+    console.log("Data fetched from IndexedDB:", data);
     if (data) {
-      dispatch(setFormData(data));
+      dispatch(setFormData(data)); 
+      dispatch(setProjectId(projectId));
+      console.log("Form data and project ID dispatched to Redux");
     } else {
       console.log("No data found for the project");
     }

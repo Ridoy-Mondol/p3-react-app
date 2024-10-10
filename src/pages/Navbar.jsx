@@ -3,8 +3,7 @@ import companyLogo from "../assets/companyLogo.svg"; // Replace with actual path
 import useFormData from "../hooks/useFormData";
 
 const NavBar = () => {
-  const { formData, handleFieldChange, handleFileChange } =
-    useFormData("form7");
+  const { formData } = useFormData("form7");
 
   const [isOpen, setIsOpen] = useState(false);
 

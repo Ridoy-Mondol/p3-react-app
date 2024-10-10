@@ -1,13 +1,12 @@
 import "../styles/WebsiteGeneratorEditor.css";
-
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LoadFormData } from "../store/Actions"; 
 import { useParams } from "react-router-dom";
+import { LoadFormData } from "../store/ProjectSlice";
 
 function WhyUs() {
   const dispatch = useDispatch();
-  const formData = useSelector((state) => state.form.form3);
+  const formData = useSelector((state) => state.project.formData.form3);
   const { projectId } = useParams();
 
   useEffect(() => {
