@@ -15,7 +15,7 @@ import NavBarForm from "./components/NavBarForm.jsx";
 function App() {
   return (
     <Provider store={store}>
-      <Router>
+      <Router basename="/p3-react-app">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route
