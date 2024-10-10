@@ -1,0 +1,36 @@
+body,
+.editorPage {
+  margin: 0;
+  padding: 0;
+}
+
+/* Custom scrollbar for WebKit browsers (Chrome, Safari) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #2d3748; /* Dark background for the scrollbar track */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4caf50; /* Green color for the scrollbar thumb */
+  border-radius: 10px;
+  border: 2px solid #2d3748; /* Space around thumb and track for inset effect */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #81c784; /* Lighter green color on hover */
+}
+
+/* Scrollbar for Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin; /* Makes the scrollbar thin in Firefox */
+  scrollbar-color: #4caf50 #2d3748; /* Thumb color and track color for Firefox */
+}
+
+/* Optional: Smooth scrolling for a better experience */
+.custom-scrollbar {
+  scroll-behavior: smooth;
+}
