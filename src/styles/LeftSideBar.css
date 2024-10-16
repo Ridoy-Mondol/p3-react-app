@@ -1,0 +1,46 @@
+/* Sidebar with a gradient background */
+.sideBar {
+  background: linear-gradient(to bottom, #d1d5db, #1f2937, #000);
+}
+
+/* Set a modern font for all text areas */
+textarea {
+  font-family: "Lato", sans-serif;
+}
+
+/* Set the width of the edit button to one-third of its container */
+.editButton button {
+  width: 1/3; /* Consider using a percentage for better compatibility */
+}
+
+/* Style for the home button with flex layout for centering */
+.homeButton {
+  display: flex; /* Use Flexbox for alignment */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  gap: 10px; /* Space between button and icon/text */
+  padding: 10px; /* Padding around the button */
+  border: 1px solid black; /* Black border for the button */
+  height: auto; /* Let the height adjust automatically */
+  background: #052e16; /* Dark background for the button */
+}
+
+/* Style for the buttons inside the home button */
+.homeButton button {
+  background: #023e28; /* Slightly lighter green background */
+  color: white; /* White text for contrast */
+  padding: 5px 15px; /* Padding for the button */
+  border-radius: 10px; /* Rounded corners for a smoother look */
+}
+
+/* Margins around the selection button container */
+.selectionButton {
+  margin: 10px 10px; /* Space around the selection buttons */
+}
+
+/* Style for the buttons inside the selection button container */
+.selectionButton button {
+  border: 1px solid #054b2d; /* Border color for selection buttons */
+  color: white; /* White text for good contrast */
+  padding: 5px; /* Padding inside the selection buttons */
+}

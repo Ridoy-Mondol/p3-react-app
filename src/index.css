@@ -1,0 +1,17 @@
+/* need to import this for using tailwind css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Styles for the root element */
+:root {
+  font-family: 'Playfair Display', sans-serif;
+}
+
+/* Global styles for body */
+body {
+  margin: 0;
+  padding: 0;
+  background: cadetblue;
+}
+

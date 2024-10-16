@@ -1,0 +1,13 @@
+/* Styles for the root element */
+#root {
+  margin: 0;
+  padding: 0;
+  background: antiquewhite;
+}
+
+/* Global styles for body and editor page */
+body,
+.editorPage {
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,87 @@
+/* Importing Google Fonts: Barlow Condensed and Lato */
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
+/* Basic styles for the editor page */
+.editorPage {
+  margin: 0; /* Reset default margin */
+  padding: 0; /* Reset default padding */
+}
+
+/* Navbar styles with a dark blue background */
+.navBar {
+  background: #001a57; /* Dark navy color */
+}
+
+/* Heading styles using Barlow Condensed font */
+h1,
+h2,
+h3 {
+  font-family: "Barlow Condensed", sans-serif; /* Set font family */
+  font-weight: 900; /* Bold weight */
+  font-style: normal; /* Normal style */
+}
+
+/* List item styles */
+li {
+  font-family: "Barlow Condensed", sans-serif; /* Set font family */
+  font-weight: 400; /* Normal weight */
+  font-size: 15px; /* Font size */
+  line-height: 21px; /* Line height for readability */
+}
+
+/* Logo size */
+.logo {
+  width: 100px; /* Set logo width */
+}
+
+/* Home section styles */
+.home {
+  font-family: "Lato", sans-serif; /* Set font family */
+  background-image: url(../assets/coverImage.png); /* Background image */
+  background-size: cover; /* Cover the entire section */
+  background-position: center; /* Center the image */
+  height: 500px; /* Fixed height for the home section */
+}
+
+/* Paragraph styles using Lato font */
+p {
+  font-family: "Lato", sans-serif; /* Set font family */
+  font-weight: 300; /* Light weight for text */
+  font-style: normal; /* Normal style */
+}
+
+/* Button styles */
+button {
+  font-family: "Lato", sans-serif; /* Set font family */
+  font-weight: 400; /* Normal weight */
+  font-style: normal; /* Normal style */
+}
+
+/* About Us section styles */
+.aboutUsPhoto {
+  width: 400px; /* Fixed width for the photo */
+}
+
+/* Hamburger menu transition styles */
+.hamburger span {
+  transition: all 0.3s ease-in-out; /* Smooth transition for all properties */
+}
+
+/* Hamburger lines transform on checkbox checked */
+#menu-toggle:checked + label .hamburger span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg); /* Rotate the first line */
+}
+
+#menu-toggle:checked + label .hamburger span:nth-child(2) {
+  opacity: 0; /* Hide the second line */
+}
+
+#menu-toggle:checked + label .hamburger span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg); /* Rotate the third line */
+}
+
+/* Menu visibility when the checkbox is checked */
+#menu-toggle:checked ~ #menu {
+  display: block; /* Show the menu */
+}
