@@ -16,7 +16,7 @@ function App() {
   return (
     <Provider store={store}> {/* Providing the Redux store to the app */}
       <PersistGate loading={null} persistor={persistor}> {/* Wrapping app with PersistGate for persisting state */}
-        <Router> {/* Setting up Router for navigation */}
+        <Router basename="/p3-react-app"> {/* Setting up Router for navigation */}
           <Routes> {/* Defining routes */}
             <Route path="/" element={<LandingPage />} /> {/* Route for landing page */}
             <Route

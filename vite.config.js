@@ -8,5 +8,5 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1000,
   },
-  // base: '/p3-react-app/',
+  base: '/p3-react-app/',
 });
